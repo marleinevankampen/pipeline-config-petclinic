@@ -1,0 +1,16 @@
+apiVersion: k3d.io/v1alpha2
+kind: Simple
+name: petclinic-cluster
+image: rancher/k3s:v1.19.9-k3s1
+registries:
+  create: true
+servers: 1
+agents: 2
+options:
+    kubeconfig:
+        updateDefaultKubeconfig: false
+        switchCurrentContext: false
+ports:
+  - port: 80:80
+    nodeFilters:
+      - loadbalancer
