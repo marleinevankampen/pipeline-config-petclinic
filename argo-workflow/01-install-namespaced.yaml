@@ -444,6 +444,7 @@ spec:
         - args:
             - server
             - --namespaced
+            - --secure=false
           image: argoproj/argocli:v3.0.7
           name: argo-server
           ports:
@@ -453,7 +454,7 @@ spec:
             httpGet:
               path: /
               port: 2746
-              scheme: HTTPS
+              scheme: HTTP
             initialDelaySeconds: 10
             periodSeconds: 20
           securityContext:
