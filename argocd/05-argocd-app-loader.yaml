@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argo-workflow
+  name: argocd-app-loader
   namespace: argocd
 spec:
   destination:
