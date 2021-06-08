@@ -219,6 +219,103 @@ rules:
   - apiGroups:
       - ""
     resources:
+      - secrets
+    verbs:
+      - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-admin: "true"
+  name: argo-aggregate-to-admin
+rules:
+  - apiGroups:
+      - argoproj.io
+    resources:
+      - workflows
+      - workflows/finalizers
+      - workfloweventbindings
+      - workfloweventbindings/finalizers
+      - workflowtemplates
+      - workflowtemplates/finalizers
+      - cronworkflows
+      - cronworkflows/finalizers
+      - clusterworkflowtemplates
+      - clusterworkflowtemplates/finalizers
+    verbs:
+      - create
+      - delete
+      - deletecollection
+      - get
+      - list
+      - patch
+      - update
+      - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-edit: "true"
+  name: argo-aggregate-to-edit
+rules:
+  - apiGroups:
+      - argoproj.io
+    resources:
+      - workflows
+      - workflows/finalizers
+      - workfloweventbindings
+      - workfloweventbindings/finalizers
+      - workflowtemplates
+      - workflowtemplates/finalizers
+      - cronworkflows
+      - cronworkflows/finalizers
+      - clusterworkflowtemplates
+      - clusterworkflowtemplates/finalizers
+    verbs:
+      - create
+      - delete
+      - deletecollection
+      - get
+      - list
+      - patch
+      - update
+      - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-view: "true"
+  name: argo-aggregate-to-view
+rules:
+  - apiGroups:
+      - argoproj.io
+    resources:
+      - workflows
+      - workflows/finalizers
+      - workfloweventbindings
+      - workfloweventbindings/finalizers
+      - workflowtemplates
+      - workflowtemplates/finalizers
+      - cronworkflows
+      - cronworkflows/finalizers
+      - clusterworkflowtemplates
+      - clusterworkflowtemplates/finalizers
+    verbs:
+      - get
+      - list
+      - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: argo-cluster-role
+rules:
+  - apiGroups:
+      - ""
+    resources:
       - pods
       - pods/exec
     verbs:
@@ -263,6 +360,8 @@ rules:
     resources:
       - workflowtemplates
       - workflowtemplates/finalizers
+      - clusterworkflowtemplates
+      - clusterworkflowtemplates/finalizers
     verbs:
       - get
       - list
@@ -274,12 +373,6 @@ rules:
     verbs:
       - get
       - list
-  - apiGroups:
-      - ""
-    resources:
-      - secrets
-    verbs:
-      - get
   - apiGroups:
       - argoproj.io
     resources:
@@ -309,9 +402,9 @@ rules:
       - delete
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
+kind: ClusterRole
 metadata:
-  name: argo-server-role
+  name: argo-server-cluster-role
 rules:
   - apiGroups:
       - ""
@@ -363,7 +456,7 @@ rules:
       - workfloweventbindings
       - workflowtemplates
       - cronworkflows
-      - cronworkflows/finalizers
+      - clusterworkflowtemplates
     verbs:
       - create
       - get
@@ -386,16 +479,30 @@ subjects:
     name: argo
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
+kind: ClusterRoleBinding
+metadata:
+  name: argo-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: argo-cluster-role
+subjects:
+  - kind: ServiceAccount
+    name: argo
+    namespace: argo
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
 metadata:
   name: argo-server-binding
 roleRef:
   apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: argo-server-role
+  kind: ClusterRole
+  name: argo-server-cluster-role
 subjects:
   - kind: ServiceAccount
     name: argo-server
+    namespace: argo
 ---
 apiVersion: v1
 kind: Service
@@ -438,7 +545,6 @@ spec:
       containers:
         - args:
             - server
-            - --namespaced
             - --secure=false
           image: argoproj/argocli:v3.0.7
           name: argo-server
@@ -487,7 +593,6 @@ spec:
             - workflow-controller-configmap
             - --executor-image
             - argoproj/argoexec:v3.0.7
-            - --namespaced
           command:
             - workflow-controller
           env:
@@ -511,9 +616,12 @@ spec:
               name: metrics
             - containerPort: 6060
           securityContext:
+            allowPrivilegeEscalation: false
             capabilities:
               drop:
                 - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
       nodeSelector:
         kubernetes.io/os: linux
       securityContext:
