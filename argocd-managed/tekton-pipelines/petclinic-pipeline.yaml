@@ -1,0 +1,51 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: petclinic-pipeline
+spec:
+  workspaces:
+    - name: pipeline-ws
+  params:
+    - name: buildnumber
+      type: string
+      description: A uniqe string that identifies the build
+  tasks:
+    - name: git-clone
+      taskRef:
+        name: git-clone
+      params:
+        - name: url
+          value: https://github.com/enrico2828/spring-petclinic.git
+        - name: revision
+          value: main
+      workspaces:
+        - name: output
+          workspace: pipeline-ws
+    - name: build-maven
+      taskRef:
+        name: maven
+      runAfter:
+        - git-clone
+      params:
+        - name: MAVEN_IMAGE
+          value: maven:3.8-adoptopenjdk-8
+      workspaces:
+        - name: source
+          workspace: pipeline-ws
+        - name: maven-settings
+          workspace: pipeline-ws
+          subpath: settings
+    - name: build-image
+      taskRef:
+        name: kaniko
+      runAfter:
+        - build-maven
+      params:
+        - name: IMAGE
+          value: host.k3d.internal:47009/petclinic:$(tasks.build-maven.results.mvn-version)-$(params.buildnumber)
+        - name: EXTRA_ARGS
+          value:
+            - --insecure
+      workspaces:
+        - name: source
+          workspace: pipeline-ws
