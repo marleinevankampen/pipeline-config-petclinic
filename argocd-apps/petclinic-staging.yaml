@@ -17,7 +17,7 @@ spec:
           enabled: true
           annotations: {}
           hosts:
-            - host: petclinic-production.127.0.0.1.nip.io
+            - host: petclinic-staging.127.0.0.1.nip.io
               paths:
                 - path: /
                   pathType: Prefix

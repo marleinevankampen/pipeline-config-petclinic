@@ -34,11 +34,11 @@ argocd login argocd.127.0.0.1.nip.io:80 \
        --password $(kubectl get secrets -n argocd argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d)
 ```
 
-## Install Argo CD
+## Install Secrets
 
 Provide secret to GitHub repo:
 
-
+`kubectl apply -f secret-files/github-pipeline-config-petclinic-ssh-key-secret.yaml`
 
 ## Build application
 
