@@ -12,7 +12,7 @@ spec:
     helm:
       values: |-
         image:
-          tag: 2.4.5-1623594604
+          tag: 2.4.5-1623595345
     path: argocd-managed/petclinic
     repoURL: https://github.com/enrico2828/pipeline-config-petclinic.git
     targetRevision: HEAD
