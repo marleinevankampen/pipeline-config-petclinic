@@ -9,7 +9,6 @@ roleRef:
   kind: ClusterRole
   name: argocd-app-reader
 subjects:
-    namespace: default
   - kind: ServiceAccount
     name: default
     namespace: default

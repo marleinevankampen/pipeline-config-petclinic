@@ -21,12 +21,9 @@ Configuration for the k8s-based ci/cd pipeline of the pet clinic app.
 
 ## Install Argo CD
 
-```
-kubectl create namespace argocd && \
-kubectl apply -n argocd -f argocd/
-```
+`kubectl create namespace argocd && kubectl apply -n argocd -f argocd/`
 
-`kubectl apply -n argocd -f argocd/05-argocd-app-loader.yaml`
+`kubectl apply -n argocd -f argocd-app-loader/01-argocd-app-loader.yaml`
 
 Login for argocd cli:
 
@@ -36,6 +33,11 @@ argocd login argocd.127.0.0.1.nip.io:80 \
        --username admin \
        --password $(kubectl get secrets -n argocd argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d)
 ```
+
+## Install Argo CD
+
+Provide secret to GitHub repo:
+
 
 
 ## Build application
