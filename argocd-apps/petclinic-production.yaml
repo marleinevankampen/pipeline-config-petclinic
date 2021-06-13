@@ -12,7 +12,7 @@ spec:
     helm:
       values: |-
         image:
-          tag: 2.4.5-1623597569
+          tag: 2.4.5-1623600442
         ingress:
           enabled: true
           annotations: {}
