@@ -13,6 +13,14 @@ spec:
       values: |-
         image:
           tag: 2.4.5-1623597569
+        ingress:
+          enabled: true
+          annotations: {}
+          hosts:
+            - host: petclinic-production.127.0.0.1.nip.io
+              paths:
+                - path: /
+                  pathType: Prefix
     path: argocd-managed/petclinic
     repoURL: https://github.com/enrico2828/pipeline-config-petclinic.git
     targetRevision: HEAD
