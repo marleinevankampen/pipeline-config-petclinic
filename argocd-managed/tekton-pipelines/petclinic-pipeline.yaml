@@ -180,7 +180,7 @@ spec:
             git checkout main
             git pull origin main
             git add $(params.ARGO_APP_FILEPATH)/$(params.ARGO_APP_FILENAME_PRODUCTION)
-            git commit -m "Tekton pipeline updated app to $(tasks.build-maven.results.mvn-version)-$(params.buildnumber)"
+            git commit -m "Tekton pipeline updated petclinic-production to $(tasks.build-maven.results.mvn-version)-$(params.buildnumber)"
             git pull origin main
             git push origin
       workspaces:
