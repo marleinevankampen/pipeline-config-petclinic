@@ -131,6 +131,55 @@ spec:
             git checkout main
             git pull origin main
             git add $(params.ARGO_APP_FILEPATH)/$(params.ARGO_APP_FILENAME_STAGING)
+            git commit -m "Tekton pipeline updated petclinic-staging to $(tasks.build-maven.results.mvn-version)-$(params.buildnumber)"
+            git pull origin main
+            git push origin
+      workspaces:
+        - name: source
+          workspace: argo-app-ws
+        - name: ssh-directory
+          workspace: git-app-config-ssh-creds
+    - name: verify-app-staging
+      taskRef:
+        name: verify-argocd-app
+      runAfter:
+        - commit-petclinic-staging
+      retries: 15
+      params:
+        - name: ARGO_APP_IMAGE_TAG
+          value: $(tasks.build-maven.results.mvn-version)-$(params.buildnumber)
+        - name: ARGO_APP_NAME
+          value: petclinic-staging
+    - name: update-petclinic-production
+      taskRef:
+        name: update-argocd-app
+      runAfter:
+        - verify-app-staging
+      params:
+        - name: ARGO_APP_FILEPATH
+          value: $(params.ARGO_APP_FILEPATH)
+        - name: ARGO_APP_FILENAME
+          value: $(params.ARGO_APP_FILENAME_PRODUCTION)
+        - name: ARGO_APP_IMAGE_TAG
+          value: $(tasks.build-maven.results.mvn-version)-$(params.buildnumber)
+      workspaces:
+        - name: source
+          workspace: argo-app-ws
+    - name: commit-petclinic-production
+      taskRef:
+        name: git-cli
+      runAfter:
+        - update-petclinic-production
+      params:
+        - name: GIT_USER_NAME
+          value: $(params.GIT_USER_NAME)
+        - name: GIT_USER_EMAIL
+          value: $(params.GIT_USER_EMAIL)
+        - name: GIT_SCRIPT
+          value: |
+            git checkout main
+            git pull origin main
+            git add $(params.ARGO_APP_FILEPATH)/$(params.ARGO_APP_FILENAME_PRODUCTION)
             git commit -m "Tekton pipeline updated app to $(tasks.build-maven.results.mvn-version)-$(params.buildnumber)"
             git pull origin main
             git push origin
@@ -139,3 +188,14 @@ spec:
           workspace: argo-app-ws
         - name: ssh-directory
           workspace: git-app-config-ssh-creds
+    - name: verify-app-production
+      taskRef:
+        name: verify-argocd-app
+      runAfter:
+        - commit-petclinic-production
+      retries: 15
+      params:
+        - name: ARGO_APP_IMAGE_TAG
+          value: $(tasks.build-maven.results.mvn-version)-$(params.buildnumber)
+        - name: ARGO_APP_NAME
+          value: petclinic-production

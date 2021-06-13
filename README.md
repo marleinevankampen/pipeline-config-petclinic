@@ -23,10 +23,7 @@ Configuration for the k8s-based ci/cd pipeline of the pet clinic app.
 
 ```
 kubectl create namespace argocd && \
-kubectl apply -n argocd -f argocd/01-install.yaml \
-                        -f argocd/02-ingress.yaml \
-                        -f argocd/03-configmap.yaml \
-                        -f argocd/04-rbac-configmap.yaml 
+kubectl apply -n argocd -f argocd/
 ```
 
 `kubectl apply -n argocd -f argocd/05-argocd-app-loader.yaml`
@@ -41,13 +38,6 @@ argocd login argocd.127.0.0.1.nip.io:80 \
 ```
 
 
-
-
-
 ## Build application
 
-```
-kubectl config set-context --current --namespace=argo && \
-argo submit ./argo-workflows/petclinic-ci.yaml
-```
-
+`./startbuild-pletclinic.sh`

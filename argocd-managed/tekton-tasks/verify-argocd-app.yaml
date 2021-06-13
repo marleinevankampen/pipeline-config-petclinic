@@ -1,0 +1,62 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: verify-argocd-app
+  labels:
+    app.kubernetes.io/version: "0.2"
+  annotations:
+    tekton.dev/pipelines.minVersion: "0.17.0"
+    tekton.dev/tags: CLI, kubectl
+    tekton.dev/displayName: "verify ArgoCD app"
+spec:
+  description: >-
+    This task will check if the given ArgoCD App is in the expected state,
+    i.e. has the expected image tag and is healthy.
+  params:
+    - name: ARGO_APP_IMAGE_TAG
+      description: The expected image tag of the ArgoCD app.
+      type: string
+    - name: ARGO_APP_NAME
+      description: The name of the ArgoCD app.
+      type: string
+    - name: KUBECTL_IMAGE
+      default: gcr.io/cloud-builders/kubectl@sha256:8ab94be8b2b4f3d117f02d868b39540fddd225447abf4014f7ba4765cb39f753
+      description: Kubectl wrapper image
+  steps:
+    - name: verify-argocd-app-version
+      image: $(params.KUBECTL_IMAGE)
+      env:
+        - name: KUBECTL_VERSION
+          value: '1.18'
+      script: |
+        #!/usr/bin/env bash
+
+        ## Check current version
+        currentVersion=$(kubectl get Application -n argocd $(params.ARGO_APP_NAME) -o jsonpath='{.status.summary.images[0]}' | awk -F':' '{print $3}' )
+        if [ "${currentVersion}" = "$(params.ARGO_APP_IMAGE_TAG)" ]
+        then
+          echo "Current version if $(params.ARGO_APP_NAME) is \'${currentVersion}\'. App is up-to-date."
+        else
+          echo "Expected version of $(params.ARGO_APP_NAME) is $(params.ARGO_APP_IMAGE_TAG) but found ${currentVersion}"
+          sleep 10
+          exit 1
+        fi
+    - name: verify-argocd-app-health
+      image: $(params.KUBECTL_IMAGE)
+      env:
+        - name: KUBECTL_VERSION
+          value: '1.18'
+      script: |
+        #!/usr/bin/env bash
+
+        ## Check current status
+        currentStatus=$(kubectl get Application -n argocd $(params.ARGO_APP_NAME) -o jsonpath='{.status.health.status}')
+        if [ "${currentStatus}" = "Healthy" ]
+        then
+          echo "Current status for $(params.ARGO_APP_NAME) is '${currentStatus}."
+        else
+          echo "Expected app $(params.ARGO_APP_NAME) to be Healthy but app is ${currentStatus}"
+          sleep 10
+          exit 1
+        fi
+
