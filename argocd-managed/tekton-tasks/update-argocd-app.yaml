@@ -1,0 +1,49 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: update-argocd-app
+  labels:
+    app.kubernetes.io/version: "0.1"
+  annotations:
+    tekton.dev/pipelines.minVersion: "0.12.1"
+    tekton.dev/displayName: "update ArgoCD app"
+spec:
+  description: >-
+    This task can be used to update the image tag of an ArgoCD app.
+
+    Pass a workspace that contains the ArgoCD app yaml and set the parameters
+    for substitution accordingly.
+
+  workspaces:
+    - name: source
+      description: A workspace that contains the argocd files.
+  params:
+    - name: BASE_IMAGE
+      description: |
+        The base image for the task.
+      type: string
+      default: docker.io/busybox:stable@sha256:dca71257cd2e72840a21f0323234bb2e33fea6d949fa0f21c5102146f583486b
+
+    - name: ARGO_APP_FILEPATH
+      type: string
+      description: |
+        The Path to the ArgoCD app relative to the workspace
+
+    - name: ARGO_APP_FILENAME
+      type: string
+      description: |
+        The name of the yaml file of the ArgoCD app in the workspace.
+
+    - name: ARGO_APP_IMAGE_TAG
+      type: string
+      description: |
+         THe image tag of the ArgoCD App to update to.
+      default: ""
+
+  steps:
+    - name: update-argo-yaml
+      image: $(params.BASE_IMAGE)
+      workingDir: $(workspaces.source.path)
+      script: |
+        sed -i 's/.*tag:.*/          tag: '$(params.ARGO_APP_IMAGE_TAG)'/g' $(params.ARGO_APP_FILEPATH)/$(params.ARGO_APP_FILENAME)

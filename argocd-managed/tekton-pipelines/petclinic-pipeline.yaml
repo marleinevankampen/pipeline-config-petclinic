@@ -5,17 +5,54 @@ metadata:
 spec:
   workspaces:
     - name: pipeline-ws
+    - name: argo-app-ws
+    - name: git-app-config-ssh-creds
   params:
     - name: buildnumber
       type: string
       description: A uniqe string that identifies the build
+    - name: GIT_USER_NAME
+      type: string
+      description: |
+        Git user name for performing git operation.
+      default: "Tekton CI"
+    - name: GIT_USER_EMAIL
+      type: string
+      description: |
+        Git user email for performing git operation.
+      default: "tekton@devnull.com"
+    - name: GIT_REPO_URL_SOURCES
+      type: string
+      description: |
+        Git repostiory that contains the sources of the app.
+      default: "https://github.com/enrico2828/spring-petclinic.git"
+    - name: GIT_REPO_URL_ARGO_CONFIG
+      type: string
+      description: |
+        Git repostiory that contains the ArgoCD app definitions.
+      default: "git@github.com:enrico2828/pipeline-config-petclinic.git"
+    - name: ARGO_APP_FILEPATH
+      type: string
+      description: |
+        The Path to the ArgoCD app relative to the workspace
+      default: "argocd-apps"
+    - name: ARGO_APP_FILENAME_STAGING
+      type: string
+      description: |
+        The name of the yaml file of the ArgoCD app for staging.
+      default: "petclinic-staging.yaml"
+    - name: ARGO_APP_FILENAME_PRODUCTION
+      type: string
+      description: |
+        The name of the yaml file of the ArgoCD app for production.
+      default: "petclinic-production.yaml"
   tasks:
-    - name: git-clone
+    - name: git-clone-app
       taskRef:
         name: git-clone
       params:
         - name: url
-          value: https://github.com/enrico2828/spring-petclinic.git
+          value: $(params.GIT_REPO_URL_SOURCES)
         - name: revision
           value: main
       workspaces:
@@ -25,7 +62,7 @@ spec:
       taskRef:
         name: maven
       runAfter:
-        - git-clone
+        - git-clone-app
       params:
         - name: MAVEN_IMAGE
           value: maven:3.8-adoptopenjdk-8
@@ -49,3 +86,56 @@ spec:
       workspaces:
         - name: source
           workspace: pipeline-ws
+    - name: git-clone-app-config
+      taskRef:
+        name: git-clone
+      runAfter:
+        - build-image
+      params:
+        - name: url
+          value: $(params.GIT_REPO_URL_ARGO_CONFIG)
+        - name: revision
+          value: main
+      workspaces:
+        - name: output
+          workspace: argo-app-ws
+        - name: ssh-directory
+          workspace: git-app-config-ssh-creds
+    - name: update-petclinic-staging
+      taskRef:
+        name: update-argocd-app
+      runAfter:
+        - git-clone-app-config
+      params:
+        - name: ARGO_APP_FILEPATH
+          value: $(params.ARGO_APP_FILEPATH)
+        - name: ARGO_APP_FILENAME
+          value: $(params.ARGO_APP_FILENAME_STAGING)
+        - name: ARGO_APP_IMAGE_TAG
+          value: $(tasks.build-maven.results.mvn-version)-$(params.buildnumber)
+      workspaces:
+        - name: source
+          workspace: argo-app-ws
+    - name: commit-petclinic-staging
+      taskRef:
+        name: git-cli
+      runAfter:
+        - update-petclinic-staging
+      params:
+        - name: GIT_USER_NAME
+          value: $(params.GIT_USER_NAME)
+        - name: GIT_USER_EMAIL
+          value: $(params.GIT_USER_EMAIL)
+        - name: GIT_SCRIPT
+          value: |
+            git checkout main
+            git pull origin main
+            git add $(params.ARGO_APP_FILEPATH)/$(params.ARGO_APP_FILENAME_STAGING)
+            git commit -m "Tekton pipeline updated app to $(tasks.build-maven.results.mvn-version)-$(params.buildnumber)"
+            git pull origin main
+            git push origin
+      workspaces:
+        - name: source
+          workspace: argo-app-ws
+        - name: ssh-directory
+          workspace: git-app-config-ssh-creds

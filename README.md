@@ -31,6 +31,19 @@ kubectl apply -n argocd -f argocd/01-install.yaml \
 
 `kubectl apply -n argocd -f argocd/05-argocd-app-loader.yaml`
 
+Login for argocd cli:
+
+```
+argocd login argocd.127.0.0.1.nip.io:80 \
+       --insecure \
+       --username admin \
+       --password $(kubectl get secrets -n argocd argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d)
+```
+
+
+
+
+
 ## Build application
 
 ```
