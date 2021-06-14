@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: tekton-install
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
 spec:
   destination:
     server: https://kubernetes.default.svc
@@ -12,8 +14,6 @@ spec:
     repoURL: https://github.com/enrico2828/pipeline-config-petclinic.git
     targetRevision: HEAD
   syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
     automated:
-      prune: true
+      prune: false
       selfHeal: true

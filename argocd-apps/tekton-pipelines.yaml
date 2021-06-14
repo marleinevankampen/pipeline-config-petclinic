@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: tekton-pipelines
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
 spec:
   destination:
     namespace: default
@@ -13,8 +15,6 @@ spec:
     repoURL: https://github.com/enrico2828/pipeline-config-petclinic.git
     targetRevision: HEAD
   syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
     automated:
-      prune: true
+      prune: false
       selfHeal: true
