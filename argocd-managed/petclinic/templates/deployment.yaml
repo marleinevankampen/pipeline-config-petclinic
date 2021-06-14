@@ -34,7 +34,11 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           args:
+            - '-Dspring.profiles.active=mysql'
             - '/app/spring-petclinic.jar'
+          env:
+            - name: MYSQL_URL
+              value: jdbc:mysql://{{ .Release.Name }}-mysql:3306/petclinic
           ports:
             - name: http
               containerPort: 8080

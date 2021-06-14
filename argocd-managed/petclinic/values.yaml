@@ -80,3 +80,11 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+mysql:
+  architecture: standalone
+  auth:
+    database: petclinic
+    username: petclinic
+    password: petclinic
+    rootPassword: root
