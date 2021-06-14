@@ -661,8 +661,6 @@ metadata:
     app.kubernetes.io/part-of: tekton-pipelines
     pipeline.tekton.dev/release: "v0.24.3"
     version: "v0.24.3"
-  annotations:
-    argocd.argoproj.io/compare-options: IgnoreExtraneous
 spec:
   group: tekton.dev
   versions:

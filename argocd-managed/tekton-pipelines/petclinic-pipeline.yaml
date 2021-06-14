@@ -2,6 +2,8 @@ apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: petclinic-pipeline
+  annotations:
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
 spec:
   workspaces:
     - name: pipeline-ws
