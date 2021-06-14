@@ -11,3 +11,11 @@ data:
   repositories: |
     - type: git
       url: https://github.com/enrico2828/pipeline-config-petclinic.git
+  resource.exclusions: |
+    - apiGroups:
+      - "*"
+      kinds:
+      - "PipelineRun"
+      - "TaskRun"
+      clusters:
+      - "*"
