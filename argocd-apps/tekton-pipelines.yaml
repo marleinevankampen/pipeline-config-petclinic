@@ -3,8 +3,7 @@ kind: Application
 metadata:
   name: tekton-pipelines
   namespace: argocd
-  annotations:
-    argocd.argoproj.io/compare-options: IgnoreExtraneous
+
 spec:
   destination:
     namespace: tekton-pipelines

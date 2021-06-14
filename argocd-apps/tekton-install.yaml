@@ -3,8 +3,6 @@ kind: Application
 metadata:
   name: tekton-install
   namespace: argocd
-  annotations:
-    argocd.argoproj.io/compare-options: IgnoreExtraneous
 spec:
   destination:
     server: https://kubernetes.default.svc
