@@ -82,7 +82,7 @@ spec:
           workspace: pipeline-ws
         - name: maven-settings
           workspace: pipeline-ws
-          subpath: settings
+          subPath: settings
     - name: build-image
       taskRef:
         name: kaniko
