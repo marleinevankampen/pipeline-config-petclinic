@@ -46,6 +46,17 @@ spec:
       description: |
         The name of the yaml file of the ArgoCD app for production.
       default: "petclinic-production.yaml"
+    - name: PETCLINIC_URL_STAGING
+      type: string
+      description: |
+        The url of the petclinig app for staging.
+      default: "http://petclinic-staging.127.0.0.1.nip.io"
+    - name: PETCLINIC_URL_PRODUCTION
+      type: string
+      description: |
+        The url of the petclinig app for production.
+      default: "http://petclinic-production.127.0.0.1.nip.io"
+
   tasks:
     - name: git-clone-app
       taskRef:
@@ -150,6 +161,24 @@ spec:
           value: $(tasks.build-maven.results.mvn-version)-$(params.buildnumber)
         - name: ARGO_APP_NAME
           value: petclinic-staging
+    - name: smoke-test-staging
+      taskRef:
+        name: smoke-test
+      runAfter:
+        - verify-app-staging
+      retries: 3
+      params:
+        - name: SMOKE_SCRIPT
+          value: |
+            BASE_URL="$(params.PETCLINIC_URL_STAGING)"
+
+            smoke_url_ok "$BASE_URL"
+                smoke_assert_body "Welcome"
+                smoke_assert_headers "text/html;charset=UTF-8"
+
+            smoke_url_ok "$BASE_URL/owners?lastName=Davis"
+                smoke_assert_body "638 Cardinal Ave."
+                smoke_assert_body "6085553198"
     - name: update-petclinic-production
       taskRef:
         name: update-argocd-app
@@ -199,3 +228,21 @@ spec:
           value: $(tasks.build-maven.results.mvn-version)-$(params.buildnumber)
         - name: ARGO_APP_NAME
           value: petclinic-production
+    - name: smoke-test-production
+      taskRef:
+        name: smoke-test
+      runAfter:
+        - verify-app-production
+      retries: 3
+      params:
+        - name: SMOKE_SCRIPT
+          value: |
+            BASE_URL="$(params.PETCLINIC_URL_PRODUCTION)"
+
+            smoke_url_ok "$BASE_URL"
+                smoke_assert_body "Welcome"
+                smoke_assert_headers "text/html;charset=UTF-8"
+
+            smoke_url_ok "$BASE_URL/owners?lastName=Davis"
+                smoke_assert_body "638 Cardinal Ave."
+                smoke_assert_body "6085553198"

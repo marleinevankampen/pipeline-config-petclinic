@@ -1,0 +1,43 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: smoke-test
+  labels:
+    app.kubernetes.io/version: "0.1"
+  annotations:
+    tekton.dev/pipelines.minVersion: "0.17.0"
+    tekton.dev/displayName: "smoke test application"
+spec:
+  description: >-
+    This task will execute a smoke test using smoke.sh script against the deployed applications.
+  params:
+    - name: SMOKE_SCRIPT
+      description: The git script to run. Please see https://github.com/asm89/smoke.sh for documentation.
+      type: string
+    - name: CURL_IMAGE
+      description: The image to run the smoketest script in.
+      type: string
+      default: docker.io/ellerbrock/alpine-bash-curl-ssl:0.3.0
+
+  steps:
+    - name: execute-smoke-test
+      image: $(params.CURL_IMAGE)
+      workingDir: /workdir
+      script: |
+        #!/usr/bin/env bash
+        set -e
+        cp /smoketest-lib/smoke.sh /workdir/smoke.sh
+        chmod +x /workdir/smoke.sh
+        . /workdir/smoke.sh
+        $(params.SMOKE_SCRIPT)
+      volumeMounts:
+        - mountPath: /smoketest-lib
+          name: smoke-test-lib
+        - mountPath: /workdir
+          name: workdir
+  volumes:
+    - name: smoke-test-lib
+      configMap:
+        name: smoketest
+    - name: workdir
+      emptyDir: {}
