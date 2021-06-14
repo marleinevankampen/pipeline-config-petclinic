@@ -13,6 +13,8 @@ spec:
     repoURL: https://github.com/enrico2828/pipeline-config-petclinic.git
     targetRevision: HEAD
   syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
     automated:
       prune: false
       selfHeal: true

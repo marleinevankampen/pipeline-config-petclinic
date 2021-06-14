@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
 spec:
   destination:
-    namespace: tekton-pipelines
+    namespace: default
     server: https://kubernetes.default.svc
   project: default
   source:
@@ -13,8 +13,6 @@ spec:
     repoURL: https://github.com/enrico2828/pipeline-config-petclinic.git
     targetRevision: HEAD
   syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
     automated:
       prune: true
       selfHeal: true

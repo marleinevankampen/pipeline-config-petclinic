@@ -3,10 +3,9 @@ kind: Application
 metadata:
   name: tekton-pipelines
   namespace: argocd
-
 spec:
   destination:
-    namespace: tekton-pipelines
+    namespace: default
     server: https://kubernetes.default.svc
   project: default
   source:
