@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: smoketest
-  namespace: tekton-pipelines
+  namespace: default
 data:
   # With lots of thanks to https://github.com/asm89/smoke.sh
   smoke.sh: |-
