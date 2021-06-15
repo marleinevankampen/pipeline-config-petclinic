@@ -185,7 +185,7 @@ spec:
       taskRef:
         name: update-argocd-app
       runAfter:
-        - verify-app-staging
+        - smoke-test-staging
       params:
         - name: ARGO_APP_FILEPATH
           value: $(params.ARGO_APP_FILEPATH)
