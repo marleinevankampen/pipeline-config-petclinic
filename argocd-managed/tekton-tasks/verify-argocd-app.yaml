@@ -32,11 +32,8 @@ spec:
         #!/usr/bin/env bash
 
         ## Check current version
-        echo $(kubectl get Application -n argocd $(params.ARGO_APP_NAME) -o jsonpath='{.status.summary}')
-        echo $(params.ARGO_APP_IMAGE_TAG)
-        echo $(kubectl get Application -n argocd $(params.ARGO_APP_NAME) -o jsonpath='{.status.summary}' | grep $(params.ARGO_APP_IMAGE_TAG) | wc -l | xargs)
         results=$(kubectl get Application -n argocd $(params.ARGO_APP_NAME) -o jsonpath='{.status.summary}' | grep $(params.ARGO_APP_IMAGE_TAG) | wc -l | xargs )
-        if [ "${currentVersion}" == 1 ]
+        if [ "${currentVersion}" == "1" ]
         then
           echo "Current version of $(params.ARGO_APP_NAME) is \'$(params.ARGO_APP_IMAGE_TAG)\'. App is up-to-date."
         else
