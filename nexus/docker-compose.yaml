@@ -1,0 +1,26 @@
+version: '2.1'
+services:
+
+  ##########################################################################
+  # Nexus - Artifact storage for Java, docker registry (also dependency proxy)
+  ##########################################################################
+  nexus:
+    container_name: 'nexus'
+    image: 'sonatype/nexus3:3.28.1'
+    ports:
+      - '8081:8081'
+      - '47010:5001' #docker registry
+    volumes:
+      - './data:/nexus-data'
+    environment:
+      - "TZ=Europe/Amsterdam"
+    restart: unless-stopped
+    logging:
+      options:
+        max-file: "10"
+        max-size: "1000000"
+
+networks:
+  default:
+    external: true
+    name: k3d-petclinic-cluster

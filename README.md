@@ -1,17 +1,29 @@
-# pipeline-config-petclinic
+# CI/CD Pipeline with ArgoCD and Tekton
 
-Configuration for the k8s-based ci/cd pipeline of the pet clinic app.
+This repository contains configuration for a k8s-based ci/cd pipeline of the Spring petclinic app.
+
+It is meant to demonstrate how we can shape a kubernetes native ci/cd pipeline. The goal was to create a showcase
+that anyone can check out on his local machine and run. All you need is Docker for the k3s based kubernetets cluster
+provided by k3d. However, everything should run just fine on any kubernetes cluster. But you will need to make 
+adjustment with respect to usage of the docker registry and networking. 
 
 ## Deployment model
+
+The idea is to use k3d and docker to quickly provide a kubernetes cluster on a local machine. From there, we deploy
+and run everything in kubernetes.
 
 ![Deployment model of the petclinic](https://github.com/enrico2828/pipeline-config-petclinic/raw/main/petclinic-pipeline-setup-deployment-model.png "Deployment model of the petclinic pipeline")
 
 ## Setup process
 
+Her an overview of the steps to set up the environment:
+
 ![Deployment model of the petclinic](https://github.com/enrico2828/pipeline-config-petclinic/raw/main/petclinic-pipeline-setup-setup-process.png "Deployment model of the petclinic pipeline")
 
 
 ## CI/CD Pipeline process
+
+Once the environment is started, this is the CI/CD process that can be kicked off:
 
 ![Deployment model of the petclinic](https://github.com/enrico2828/pipeline-config-petclinic/raw/main/petclinic-pipeline-setup-pipeline-process.png "Deployment model of the petclinic pipeline")
 
@@ -34,13 +46,13 @@ Configuration for the k8s-based ci/cd pipeline of the pet clinic app.
 
 `export KUBECONFIG=$(pwd)/.kube/config`
 
-## Install Argo CD
+## Deploy Argo CD
 
 `kubectl create namespace argocd && kubectl apply -n argocd -f argocd/`
 
 `kubectl apply -n argocd -f argocd-app-loader/01-argocd-app-loader.yaml`
 
-Login for argocd cli:
+Login for argocd cli if you want to use the command line client:
 
 ```
 argocd login argocd.127.0.0.1.nip.io:80 \
@@ -51,8 +63,8 @@ argocd login argocd.127.0.0.1.nip.io:80 \
 
 ## Install Secrets
 
-To update the argocd petclinic apps we need to provide authentication for Github. We can use a github deploy key
-for it. https://docs.github.com/en/developers/overview/managing-deploy-keys
+To update the argocd petclinic apps we need to provide authentication for the Github repo with the configuration files. 
+We can use a github deploy key for it. https://docs.github.com/en/developers/overview/managing-deploy-keys
 
 Provide it as file "id_rsa" in secret "github-pipeline-config-petclinic-ssh-key"
 
@@ -70,7 +82,7 @@ Apply to cluster:
 
 `kubectl apply -f secret-files/github-pipeline-config-petclinic-ssh-key-secret.yaml`
 
-## Build application
+## Build the application
 
 `./startbuild-petclinic.sh`
 
@@ -83,3 +95,19 @@ You can fork those two repos:
 * https://github.com/enrico2828/spring-petclinic
 
 Replace all reference to these with your own repos and add your secret to the k3d cluster as per the instruction above.
+
+## Optional: Use Nexus for local caching
+
+If you want to destroy and rebuild the cluster often, this will generate a lot of traffic. To deploy everything,
+more than 2,5 GB of docker images has to be downloaded. Therefore, it can be useful to use a local repository cache like
+Nexus.
+
+You can start a local nexus instance from `nexus` directory: 
+
+`docker-compose up -d`
+
+Data will be persisted in the `data` directory on the host. 
+
+Also, initialize the k3d cluster with the adjusted config that makes k3d use the local docker registry:
+
+`k3d cluster create --config k3d/config_nexus`
