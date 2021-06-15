@@ -32,12 +32,15 @@ spec:
         #!/usr/bin/env bash
 
         ## Check current version
-        currentVersion=$(kubectl get Application -n argocd $(params.ARGO_APP_NAME) -o jsonpath='{.status.summary.images[0]}' | awk -F':' '{print $3}' )
-        if [ "${currentVersion}" = "$(params.ARGO_APP_IMAGE_TAG)" ]
+        echo $(kubectl get Application -n argocd $(params.ARGO_APP_NAME) -o jsonpath='{.status.summary}')
+        echo $(params.ARGO_APP_IMAGE_TAG)
+        echo $(kubectl get Application -n argocd $(params.ARGO_APP_NAME) -o jsonpath='{.status.summary}' | grep $(params.ARGO_APP_IMAGE_TAG) | wc -l | xargs)
+        results=$(kubectl get Application -n argocd $(params.ARGO_APP_NAME) -o jsonpath='{.status.summary}' | grep $(params.ARGO_APP_IMAGE_TAG) | wc -l | xargs )
+        if [ "${currentVersion}" == 1 ]
         then
-          echo "Current version if $(params.ARGO_APP_NAME) is \'${currentVersion}\'. App is up-to-date."
+          echo "Current version of $(params.ARGO_APP_NAME) is \'$(params.ARGO_APP_IMAGE_TAG)\'. App is up-to-date."
         else
-          echo "Expected version of $(params.ARGO_APP_NAME) is $(params.ARGO_APP_IMAGE_TAG) but found ${currentVersion}"
+          echo "Expected version of $(params.ARGO_APP_NAME) is $(params.ARGO_APP_IMAGE_TAG) but has not been found"
           sleep 10
           exit 1
         fi
