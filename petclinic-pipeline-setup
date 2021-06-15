@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2021-06-15T13:59:13.129Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Safari/537.36 Edg/91.0.864.48" etag="ME-V3XpXQlT7JCWq5Q8S" version="14.7.8" type="github">
+<mxfile host="app.diagrams.net" modified="2021-06-15T14:11:21.677Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Safari/537.36 Edg/91.0.864.48" etag="OH79uDj16VmTrfEouzAd" version="14.7.8" type="github">
   <diagram id="oIiZg7qTkP9RDmJNxKmc" name="Page-1">
-    <mxGraphModel dx="2229" dy="941" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2516" dy="2110" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -60,7 +60,7 @@
         <mxCell id="un3GZtclwe4mY6B4kdKa-18" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="un3GZtclwe4mY6B4kdKa-15" target="un3GZtclwe4mY6B4kdKa-17">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="un3GZtclwe4mY6B4kdKa-15" value="Smoke Test Staging" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="un3GZtclwe4mY6B4kdKa-15" value="Smoke test staging" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="810" y="270" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="un3GZtclwe4mY6B4kdKa-20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="un3GZtclwe4mY6B4kdKa-17" target="un3GZtclwe4mY6B4kdKa-19">
@@ -75,14 +75,14 @@
         <mxCell id="un3GZtclwe4mY6B4kdKa-19" value="Update production deployment" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="960" y="425" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="un3GZtclwe4mY6B4kdKa-22" value="Smoke Test Staging" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="un3GZtclwe4mY6B4kdKa-22" value="Smoke test production" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="1110" y="270" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="un3GZtclwe4mY6B4kdKa-25" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://tekton.dev/images/tekton-horizontal-color.png;" vertex="1" parent="1">
-          <mxGeometry x="60" y="180" width="217.96" height="70" as="geometry" />
+          <mxGeometry x="256.03999999999996" y="180" width="217.96" height="70" as="geometry" />
         </mxCell>
         <mxCell id="un3GZtclwe4mY6B4kdKa-26" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://www.katacoda.com/openshift/assets/gitops/argocd-logo.png;" vertex="1" parent="1">
-          <mxGeometry x="50" y="410" width="180" height="180" as="geometry" />
+          <mxGeometry x="280.00000000000006" y="410" width="180" height="180" as="geometry" />
         </mxCell>
         <mxCell id="un3GZtclwe4mY6B4kdKa-30" value="" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/mscae/Docker.svg;" vertex="1" parent="1">
           <mxGeometry x="96.83" y="750" width="73.17" height="60" as="geometry" />
@@ -124,10 +124,10 @@
           <mxGeometry x="970" y="969" width="50" height="54.5" as="geometry" />
         </mxCell>
         <mxCell id="un3GZtclwe4mY6B4kdKa-47" value="Petclinic DB" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.mysql_db_instance;fillColor=#2E73B8;gradientColor=none;" vertex="1" parent="1">
-          <mxGeometry x="830" y="969" width="50" height="54.5" as="geometry" />
+          <mxGeometry x="835" y="969" width="50" height="54.5" as="geometry" />
         </mxCell>
         <mxCell id="un3GZtclwe4mY6B4kdKa-49" value="Petclinic app" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.android;fillColor=#EE472A;gradientColor=none;" vertex="1" parent="1">
-          <mxGeometry x="828.38" y="879" width="61.62" height="59" as="geometry" />
+          <mxGeometry x="827.38" y="879" width="61.62" height="59" as="geometry" />
         </mxCell>
         <mxCell id="un3GZtclwe4mY6B4kdKa-50" value="Petclinic app" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.android;fillColor=#EE472A;gradientColor=none;" vertex="1" parent="1">
           <mxGeometry x="966.63" y="879" width="56.75" height="56" as="geometry" />
@@ -170,6 +170,63 @@
         </mxCell>
         <mxCell id="un3GZtclwe4mY6B4kdKa-73" value="&lt;font color=&quot;#000000&quot;&gt;k3d&lt;br&gt;kubectl&lt;br&gt;tkn&lt;br&gt;&lt;div&gt;argocd&lt;/div&gt;&lt;/font&gt;" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn0.iconfinder.com/data/icons/octicons/1024/terminal-128.png;fontColor=#FFFFFF;align=left;" vertex="1" parent="1">
           <mxGeometry x="-220" y="962.25" width="68" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="un3GZtclwe4mY6B4kdKa-97" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="-390" width="860" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="un3GZtclwe4mY6B4kdKa-98" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="-620" width="860" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="un3GZtclwe4mY6B4kdKa-99" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="un3GZtclwe4mY6B4kdKa-100" target="un3GZtclwe4mY6B4kdKa-102">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="un3GZtclwe4mY6B4kdKa-100" value="Create K3D registry" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="-520" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="un3GZtclwe4mY6B4kdKa-101" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="un3GZtclwe4mY6B4kdKa-102" target="un3GZtclwe4mY6B4kdKa-104">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="un3GZtclwe4mY6B4kdKa-102" value="Create K3D cluster" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="-520" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="un3GZtclwe4mY6B4kdKa-103" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="un3GZtclwe4mY6B4kdKa-104" target="un3GZtclwe4mY6B4kdKa-106">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="un3GZtclwe4mY6B4kdKa-104" value="Deploy ArgoCD" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="-520" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="un3GZtclwe4mY6B4kdKa-122" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontColor=#FFFFFF;" edge="1" parent="1" source="un3GZtclwe4mY6B4kdKa-106" target="un3GZtclwe4mY6B4kdKa-121">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="un3GZtclwe4mY6B4kdKa-106" value="Deploy ArgoCD &lt;br&gt;App Loader" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="510" y="-520" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="un3GZtclwe4mY6B4kdKa-119" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://www.katacoda.com/openshift/assets/gitops/argocd-logo.png;" vertex="1" parent="1">
+          <mxGeometry x="270" y="-380" width="180" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="un3GZtclwe4mY6B4kdKa-120" value="" style="aspect=fixed;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;align=center;fillColor=#00188D;shape=mxgraph.azure.user;labelBackgroundColor=none;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="316.7" y="-610" width="65.8" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="un3GZtclwe4mY6B4kdKa-126" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontColor=#FFFFFF;" edge="1" parent="1" source="un3GZtclwe4mY6B4kdKa-121" target="un3GZtclwe4mY6B4kdKa-125">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="un3GZtclwe4mY6B4kdKa-121" value="Deploy ArgoCD Apps" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="510" y="-320" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="un3GZtclwe4mY6B4kdKa-125" value="Deploy Tekton" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="718.38" y="-320" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="un3GZtclwe4mY6B4kdKa-129" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="28.38" y="-60" width="1201.62" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="un3GZtclwe4mY6B4kdKa-139" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontColor=#FFFFFF;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="un3GZtclwe4mY6B4kdKa-131" target="un3GZtclwe4mY6B4kdKa-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="un3GZtclwe4mY6B4kdKa-131" value="Trigger Pipeline" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="un3GZtclwe4mY6B4kdKa-137" value="" style="aspect=fixed;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;align=center;fillColor=#00188D;shape=mxgraph.azure.user;labelBackgroundColor=none;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="327.1000000000001" y="-50" width="65.8" height="70" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
