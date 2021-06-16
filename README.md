@@ -1,4 +1,4 @@
-# CI/CD Pipeline with ArgoCD and Tekton
+# GitOps CI/CD Pipeline with ArgoCD and Tekton
 
 This repository contains configuration for a k8s-based ci/cd pipeline of the Spring petclinic app.
 
