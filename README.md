@@ -14,9 +14,16 @@ and run everything in kubernetes.
 
 ![Deployment model of the petclinic](https://github.com/enrico2828/pipeline-config-petclinic/raw/main/petclinic-pipeline-setup-deployment-model.png "Deployment model of the petclinic pipeline")
 
+You can access deployed tools on:
+* http://argocd.127.0.0.1.nip.io
+* http://tekton.127.0.0.1.nip.io
+* http://petclinic-staging.127.0.0.1.nip.io
+* http://petclinic-production.127.0.0.1.nip.io
+
+
 ## Setup process
 
-Her an overview of the steps to set up the environment:
+Here an overview of the steps to set up the environment:
 
 ![Deployment model of the petclinic](https://github.com/enrico2828/pipeline-config-petclinic/raw/main/petclinic-pipeline-setup-setup-process.png "Deployment model of the petclinic pipeline")
 
@@ -82,9 +89,11 @@ Apply to cluster:
 
 `kubectl apply -f secret-files/github-pipeline-config-petclinic-ssh-key-secret.yaml`
 
-## Build the application
+## Start the CI/CD pipeline
 
 `./startbuild-petclinic.sh`
+
+It will output instructions to watch the build or simply go to the dasboard.
 
 ## Try it yourself
 
@@ -108,6 +117,17 @@ You can start a local nexus instance from `nexus` directory:
 
 Data will be persisted in the `data` directory on the host. 
 
+For now, repositories need to be set up manually. Go to nexus on `http:\\localhost:8081`. The admin password can be found
+in `nexus\data`. 
+
+Add two docker proxies
+* docker.io on port 5003
+* gcr.io on port 5002
+
+Make sure to enable anonymous access and the docker realm.
+
 Also, initialize the k3d cluster with the adjusted config that makes k3d use the local docker registry:
 
 `k3d cluster create --config k3d/config_nexus`
+
+Voila! Now all your kubernetes images will be proxied through Nexus.
