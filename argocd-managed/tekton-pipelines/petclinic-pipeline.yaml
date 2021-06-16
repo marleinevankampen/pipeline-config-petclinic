@@ -84,15 +84,14 @@ spec:
           workspace: pipeline-ws
     - name: build-image
       taskRef:
-        name: kaniko
+        name: buildah
       runAfter:
         - build-maven
       params:
         - name: IMAGE
           value: host.k3d.internal:47009/petclinic:$(tasks.build-maven.results.mvn-version)-$(params.buildnumber)
-        - name: EXTRA_ARGS
-          value:
-            - --insecure
+        - name: TLSVERIFY
+          value: 'false'
       workspaces:
         - name: source
           workspace: pipeline-ws

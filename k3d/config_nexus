@@ -14,6 +14,9 @@ registries:
       "gcr.io":
         endpoint:
           - http://nexus:5002
+      "quay.io":
+        endpoint:
+          - http://nexus:5004
       "*":
         endpoint:
           - http://nexus:5003

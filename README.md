@@ -95,6 +95,14 @@ Apply to cluster:
 
 It will output instructions to watch the build or simply go to the dasboard.
 
+## Erase your traces
+
+Since everything is running in Docker, removing the docker containers will clean up everything.
+
+`k3d cluster delete petclinic-cluster`
+
+`k3d registry delete k3d-registry.localhost`
+
 ## Try it yourself
 
 You can just check out my repos and try it, but you will not be able to update the Argo apps in my github repo. 
@@ -121,6 +129,7 @@ For now, repositories need to be set up manually. Go to nexus on `http:\\localho
 in `nexus\data`. 
 
 Add two docker proxies
+* quay.io on port 5004
 * docker.io on port 5003
 * gcr.io on port 5002
 
