@@ -58,6 +58,11 @@ spec:
       description: |
         The url of the petclinig app for production.
       default: "http://petclinic-production.127.0.0.1.nip.io"
+    - name: PETCLINIC_IMAGE_REPO
+      type: string
+      description: |
+        The repository for the petclinic container image.
+      default: "host.k3d.internal:47009/petclinic"
 
   tasks:
     - name: git-clone-app
@@ -89,7 +94,7 @@ spec:
         - build-maven
       params:
         - name: IMAGE
-          value: host.k3d.internal:47009/petclinic:$(tasks.build-maven.results.mvn-version)-$(params.buildnumber)
+          value: $(params.PETCLINIC_IMAGE_REPO):$(tasks.build-maven.results.mvn-version)-$(params.buildnumber)
         - name: TLSVERIFY
           value: 'false'
       workspaces:
