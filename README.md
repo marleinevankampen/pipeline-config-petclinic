@@ -77,6 +77,7 @@ Provide it as file "id_rsa" in secret "github-pipeline-config-petclinic-ssh-key"
 
 ```
 apiVersion: v1
+kind: ConfigMap
 data:
   id_rsa: .......
 kind: Secret
