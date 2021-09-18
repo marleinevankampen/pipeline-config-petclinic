@@ -20,14 +20,14 @@ spec:
       description: The name of the ArgoCD app.
       type: string
     - name: KUBECTL_IMAGE
-      default: gcr.io/cloud-builders/kubectl@sha256:8ab94be8b2b4f3d117f02d868b39540fddd225447abf4014f7ba4765cb39f753
+      default: bitnami/kubectl:1.20
       description: Kubectl wrapper image
   steps:
     - name: verify-argocd-app-version
       image: $(params.KUBECTL_IMAGE)
       env:
         - name: KUBECTL_VERSION
-          value: '1.18'
+          value: '1.20'
       script: |
         #!/usr/bin/env bash
 
@@ -45,7 +45,7 @@ spec:
       image: $(params.KUBECTL_IMAGE)
       env:
         - name: KUBECTL_VERSION
-          value: '1.18'
+          value: '1.20'
       script: |
         #!/usr/bin/env bash
 
