@@ -10,7 +10,7 @@ spec:
   project: default
   source:
     path: argocd-managed/tekton-install
-    repoURL: https://github.com/enrico2828/pipeline-config-petclinic.git
+    repoURL: https://github.com/marleinevankampen/pipeline-config-petclinic.git
     targetRevision: HEAD
   syncPolicy:
     syncOptions:

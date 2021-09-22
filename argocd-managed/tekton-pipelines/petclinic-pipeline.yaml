@@ -27,12 +27,12 @@ spec:
       type: string
       description: |
         Git repostiory that contains the sources of the app.
-      default: "https://github.com/enrico2828/spring-petclinic.git"
+      default: "https://github.com/marleinevankampen/spring-petclinic.git"
     - name: GIT_REPO_URL_ARGO_CONFIG
       type: string
       description: |
         Git repostiory that contains the ArgoCD app definitions.
-      default: "git@github.com:enrico2828/pipeline-config-petclinic.git"
+      default: "git@github.com:marleinevankampen/pipeline-config-petclinic.git"
     - name: ARGO_APP_FILEPATH
       type: string
       description: |

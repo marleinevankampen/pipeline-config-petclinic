@@ -10,7 +10,7 @@ data:
   users.anonymous.enabled: "true"
   repositories: |
     - type: git
-      url: https://github.com/enrico2828/pipeline-config-petclinic.git
+      url: https://github.com/marleinevankampen/pipeline-config-petclinic.git
   resource.exclusions: |
     - apiGroups:
       - "*"

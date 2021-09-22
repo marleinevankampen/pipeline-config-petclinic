@@ -12,7 +12,7 @@ adjustment with respect to usage of the docker registry and networking.
 The idea is to use k3d and docker to quickly provide a kubernetes cluster on a local machine. From there, we deploy
 and run everything in kubernetes.
 
-![Deployment model of the petclinic](https://github.com/enrico2828/pipeline-config-petclinic/raw/main/petclinic-pipeline-setup-deployment-model.png "Deployment model of the petclinic pipeline")
+![Deployment model of the petclinic](https://github.com/marleinevankampen/pipeline-config-petclinic/raw/main/petclinic-pipeline-setup-deployment-model.png "Deployment model of the petclinic pipeline")
 
 You can access deployed tools on:
 * http://argocd.127.0.0.1.nip.io
@@ -25,14 +25,14 @@ You can access deployed tools on:
 
 Here an overview of the steps to set up the environment:
 
-![Deployment model of the petclinic](https://github.com/enrico2828/pipeline-config-petclinic/raw/main/petclinic-pipeline-setup-setup-process.png "Deployment model of the petclinic pipeline")
+![Deployment model of the petclinic](https://github.com/marleinevankampen/pipeline-config-petclinic/raw/main/petclinic-pipeline-setup-setup-process.png "Deployment model of the petclinic pipeline")
 
 
 ## CI/CD Pipeline process
 
 Once the environment is started, this is the CI/CD process that can be kicked off:
 
-![Deployment model of the petclinic](https://github.com/enrico2828/pipeline-config-petclinic/raw/main/petclinic-pipeline-setup-pipeline-process.png "Deployment model of the petclinic pipeline")
+![Deployment model of the petclinic](https://github.com/marleinevankampen/pipeline-config-petclinic/raw/main/petclinic-pipeline-setup-pipeline-process.png "Deployment model of the petclinic pipeline")
 
 
 ## Required Tools
@@ -109,8 +109,8 @@ Since everything is running in Docker, removing the docker containers will clean
 You can just check out my repos and try it, but you will not be able to update the Argo apps in my github repo. 
 
 You can fork those two repos:
-* https://github.com/enrico2828/pipeline-config-petclinic
-* https://github.com/enrico2828/spring-petclinic
+* https://github.com/marleinevankampen/pipeline-config-petclinic
+* https://github.com/marleinevankampen/spring-petclinic
 
 Replace all reference to these with your own repos and add your secret to the k3d cluster as per the instruction above.
 
